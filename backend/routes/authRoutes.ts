@@ -1,4 +1,4 @@
-import { register, login} from "../middleware/pcrypt";
+import { register, login} from "../controllers/authControl";
 import express from 'express';
 
 

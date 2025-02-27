@@ -3,6 +3,7 @@ import express from "express";
 import taskRoutes from "./routes/taskRoutes"
 import authRoutes from "./routes/authRoutes"
 import dotenv from "dotenv"
+import { authToken } from "./middleware/authMiddleware";
 
 
 // TRY DEVELOPING THE REGISTER AND LOGIN FUNCTIONALITY
@@ -20,7 +21,7 @@ app.use("/auth", authRoutes);
 
 
 // Task Routes
-app.use("/", taskRoutes);
+app.use("/task", authToken,taskRoutes);
 
 // User Routes
 
