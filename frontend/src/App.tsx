@@ -1,10 +1,35 @@
-import "./App.css";
+import { useEffect, useState } from "react";
+import { getTasks } from "./services/api";
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    getTasks()
+      .then((data) => {
+        console.log("Tasks:", data.getTasks);
+        setTasks(data.tasks);
+      })
+      .catch((error) => console.error("Error fetching tasks:", error));
+  }, []);
+
   return (
-    <>
-      <h1 className="underline">Hello World</h1>
-    </>
+    <div>
+      <div>
+        <h1>Tasks</h1>
+        {tasks.length > 0 ? (
+          <ul>
+            {tasks.map((task) => (
+              <li key={task.id}>
+                {task.title || task.name || JSON.stringify(task)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No tasks available</p>
+        )}
+      </div>
+    </div>
   );
 }
 

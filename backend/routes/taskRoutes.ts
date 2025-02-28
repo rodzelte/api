@@ -9,11 +9,9 @@ const app = express();
 app.use(express.json());
 
 // Task Routes
-
 app.use("/", getTask);
 app.use("/", addTask);
 app.use("/", patchTask);
 app.use("/", removeTask);
-
 
 export default app;
