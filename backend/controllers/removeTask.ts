@@ -1,20 +1,26 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 
-const router = express.Router();
 const prisma = new PrismaClient();
 
-router.delete('/removeTask/:id', async (req, res) => {
-    const { id, } = req.params;
-   const patch = await prisma.task.delete({
-        where:{
-            id: String(id),
-        },  
-        });
-     res.status(200).json(patch);
-});
+const removeTask = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
 
+    if (!id) {
+      res.status(400).json({ message: "Task ID is required" });
+      return;
+    }
 
+    await prisma.task.delete({
+      where: { id },
+    });
 
-export default router;
+    res.status(200).json({ message: "Task deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    res.status(400).json({ message: "Error deleting task wrong input" });
+  }
+};
 
+export default removeTask;

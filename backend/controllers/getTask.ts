@@ -1,17 +1,18 @@
-import express from "express";
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
-const router = express.Router();
 const prisma = new PrismaClient();
 
-router.get("/getTask", async (req, res) => {
+// ✅ Ensure function signature is correct
+const getTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const tasks = await prisma.task.findMany();
-    res.status(200).json({ message: "Task received at /getTask", tasks });
+    res.status(200).json(tasks);
   } catch (error) {
-    console.error("Error fetching task", error);
-    res.status(500).json({ message: "Error fetching task" });
+    console.error("Error retrieving tasks:", error);
+    res.status(500).json({ message: "Error retrieving tasks" });
   }
-});
+};
 
-export default router;
+// ✅ Export function correctly
+export default getTask;

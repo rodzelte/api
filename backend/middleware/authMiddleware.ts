@@ -25,6 +25,5 @@ export const authToken = (req: AuthenticatedRequest, res: Response, next: NextFu
         next();
     } catch (error) {
          res.status(400).json({ message: "Invalid Token" });
-         return
     }
 };

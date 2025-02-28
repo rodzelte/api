@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URI")
+  url      = env("DATABASE_URL")
 }
 
 model task {
@@ -19,7 +19,8 @@ model task {
   body      String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
-  user user @relation(fields: id, references: id)
+  userId    String   @db.ObjectId
+  user      user     @relation(fields: [userId], references: [id])
 }
 
 model user {
@@ -27,6 +28,6 @@ model user {
   email     String   @unique
   password  String
   name      String
-  task task[]
+  task      task[]
   createdAt DateTime @default(now())
 }

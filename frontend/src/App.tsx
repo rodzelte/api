@@ -7,8 +7,8 @@ function App() {
   useEffect(() => {
     getTasks()
       .then((data) => {
-        console.log("Tasks:", data.getTasks);
-        setTasks(data.tasks);
+        console.log("Tasks:", data);
+        setTasks(data.tasks || data.getTasks);
       })
       .catch((error) => console.error("Error fetching tasks:", error));
   }, []);

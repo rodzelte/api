@@ -1,27 +1,28 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 
-const router = express.Router();
 const prisma = new PrismaClient();
 
-router.patch('/patchTask/:id', async (req, res) => {
-    const { id, } = req.params;
-    const { title , body } = req.body;
-   const patch = await prisma.task.update({
-        where:{
-            id: String(id),
-        },  
+const patchTask = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { title, body } = req.body;
 
-         data:{
-              title: title,
-              body: body,
-             
-         }
+    if (!id) {
+      res.status(400).json({ message: "Task ID is required" });
+      return;
+    }
+
+    const updatedTask = await prisma.task.update({
+      where: { id },
+      data: { title, body },
     });
-     res.status(200).json(patch);
-});
 
+    res.status(200).json({ message: "Task updated successfully", updatedTask });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.status(500).json({ message: "Error updating task" });
+  }
+};
 
-
-export default router;
-
+export default patchTask;
