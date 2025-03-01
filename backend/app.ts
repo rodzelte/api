@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 // TRY TO REGISTER AND LOGIN
-app.use("/auth",   authRoutes);
+app.use("/auth",    authRoutes);
 
 // Task Routes
 app.use("/task", taskRoutes);

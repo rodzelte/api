@@ -1,16 +1,14 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "./components/mode-toggle";
-import { ThemeProvider } from "./components/theme-provider";
-import RegisterPage from "./pages/RegisterPage";
+import { ProfileForm } from "./components/auth/RegisterForm";
 
-function App() {
+export default function App() {
   return (
-    <>
-      <ModeToggle />
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RegisterPage />
-      </ThemeProvider>
-    </>
+    <ThemeProvider defaultTheme="system" storageKey="theme">
+      <div className="min-h-screen bg-background text-foreground">
+        <ModeToggle></ModeToggle>
+        <ProfileForm></ProfileForm>
+      </div>
+    </ThemeProvider>
   );
 }
-
-export default App;
