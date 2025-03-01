@@ -1,9 +1,9 @@
-import { Button } from "./components/ui/button";
+import { ProfileForm } from "./components/auth/RegisterForm";
 
 function App() {
   return (
     <div>
-      <Button variant={"destructive"}>Yawa Walay Hover</Button>
+      <ProfileForm></ProfileForm>
     </div>
   );
 }
