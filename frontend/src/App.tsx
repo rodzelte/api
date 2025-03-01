@@ -1,13 +1,32 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "./components/mode-toggle";
-import { ProfileForm } from "./components/auth/RegisterForm";
+
+import { Routes, Route } from "react-router";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
       <div className="min-h-screen bg-background text-foreground">
-        <ModeToggle></ModeToggle>
-        <ProfileForm></ProfileForm>
+        <div className="m-5">
+          <ModeToggle />
+        </div>
+        <Routes>
+          {/* <Route index element={<Home />} />
+          <Route path="about" element={<About />} /> */}
+
+          <Route>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </Route>
+
+          {/* <Route path="concerts">
+            <Route index element={<ConcertsHome />} />
+            <Route path=":city" element={<City />} />
+            <Route path="trending" element={<Trending />} />
+          </Route> */}
+        </Routes>
       </div>
     </ThemeProvider>
   );
