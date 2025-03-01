@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import {
   Form,
   FormControl,
@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/Input";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/Card";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50, {
@@ -48,7 +48,7 @@ const formFields = [
   {
     name: "username",
     label: "Username",
-    placeholder: "johndoe123",
+    placeholder: "johndoe123@abc.abcd",
     type: "text",
     description: "Your unique username for the platform",
   },
@@ -76,7 +76,7 @@ export function ProfileForm() {
   }
 
   return (
-    <Card>
+    <Card className="w-full max-w-md ">
       <CardHeader>
         <CardTitle>Registration</CardTitle>
         <CardDescription>
@@ -110,9 +110,9 @@ export function ProfileForm() {
                 )}
               />
             ))}
-            <CardFooter>
-              {" "}
+            <CardFooter className="space-x-4 justify-end">
               <Button type="submit">Submit</Button>
+              <Button type="reset">Reset</Button>
             </CardFooter>
           </form>
         </Form>
