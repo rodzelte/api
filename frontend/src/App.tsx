@@ -4,6 +4,7 @@ import { ModeToggle } from "./components/mode-toggle";
 import { Routes, Route } from "react-router";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="about" element={<About />} /> */}
 
           <Route>
+            <Route path="home" element={<ProtectedRoute />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
           </Route>

@@ -23,6 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "react-router";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50, {
@@ -111,8 +112,11 @@ export function ProfileForm() {
               />
             ))}
             <CardFooter className="space-x-4 justify-end">
-              <Button type="submit">Submit</Button>
-              <Button type="reset">Reset</Button>
+              <FormDescription>
+                {" "}
+                <Link to="/login">Already have account?</Link>
+              </FormDescription>
+              <Button type="submit">Register</Button>
             </CardFooter>
           </form>
         </Form>
