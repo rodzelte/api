@@ -5,20 +5,36 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function AuthForms() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState<boolean>(false);
+  const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!agreedToTerms) {
+      alert("Please agree to the terms and conditions");
+      return;
+    }
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
@@ -29,6 +45,10 @@ export default function AuthForms() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!agreedToTerms) {
+      alert("Please agree to the terms and conditions");
+      return;
+    }
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
@@ -37,8 +57,22 @@ export default function AuthForms() {
     }, 1000);
   };
 
+  const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Simulate API call to send password reset code
+    setTimeout(() => {
+      setIsLoading(false);
+      setForgotPasswordOpen(false);
+      // You would typically show a success message here
+      alert(
+        "If your email exists in our system, you will receive a password reset code shortly."
+      );
+    }, 1000);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
@@ -67,22 +101,93 @@ export default function AuthForms() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password">Password</Label>
-                      <Button
-                        variant="link"
-                        className="px-0 font-normal text-xs"
-                        type="button"
+                      <Dialog
+                        open={forgotPasswordOpen}
+                        onOpenChange={setForgotPasswordOpen}
                       >
-                        Forgot password?
-                      </Button>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="link"
+                            className="px-0 font-normal text-xs"
+                            type="button"
+                          >
+                            Forgot password?
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Reset password</DialogTitle>
+                            <DialogDescription>
+                              Enter your email address and we'll send you a code
+                              to reset your password.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <form onSubmit={handleForgotPassword}>
+                            <div className="grid gap-4 py-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="resetEmail">Email</Label>
+                                <Input
+                                  id="resetEmail"
+                                  type="email"
+                                  placeholder="name@example.com"
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <DialogFooter>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => setForgotPasswordOpen(false)}
+                              >
+                                Cancel
+                              </Button>
+                              <Button type="submit" disabled={isLoading}>
+                                {isLoading ? "Sending..." : "Send reset code"}
+                              </Button>
+                            </DialogFooter>
+                          </form>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                     <Input id="password" type="password" required />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) =>
+                        setAgreedToTerms(checked as boolean)
+                      }
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      I agree to the{" "}
+                      <Button
+                        variant="link"
+                        className="p-0 font-normal text-primary"
+                        type="button"
+                      >
+                        Terms of Service
+                      </Button>{" "}
+                      and{" "}
+                      <Button
+                        variant="link"
+                        className="p-0 font-normal text-primary"
+                        type="button"
+                      >
+                        Privacy Policy
+                      </Button>
+                    </label>
                   </div>
                 </CardContent>
                 <CardFooter>
                   <Button
-                    className="w-full my-3"
+                    className="w-full"
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || !agreedToTerms}
                   >
                     {isLoading ? "Logging in..." : "Login"}
                   </Button>
@@ -127,12 +232,42 @@ export default function AuthForms() {
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input id="confirmPassword" type="password" required />
                   </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) =>
+                        setAgreedToTerms(checked as boolean)
+                      }
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      I agree to the{" "}
+                      <Button
+                        variant="link"
+                        className="p-0 font-normal text-primary"
+                        type="button"
+                      >
+                        Terms of Service
+                      </Button>{" "}
+                      and{" "}
+                      <Button
+                        variant="link"
+                        className="p-0 font-normal text-primary"
+                        type="button"
+                      >
+                        Privacy Policy
+                      </Button>
+                    </label>
+                  </div>
                 </CardContent>
                 <CardFooter>
                   <Button
-                    className="w-full my-3"
+                    className="w-full"
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || !agreedToTerms}
                   >
                     {isLoading ? "Creating account..." : "Create account"}
                   </Button>
@@ -141,25 +276,6 @@ export default function AuthForms() {
             </Card>
           </TabsContent>
         </Tabs>
-        <div className="mt-4 text-center text-sm text-muted-foreground">
-          By continuing, you agree to our{" "}
-          <Button
-            variant="link"
-            className="p-0 font-normal text-primary"
-            type="button"
-          >
-            Terms of Service
-          </Button>{" "}
-          and{" "}
-          <Button
-            variant="link"
-            className="p-0 font-normal text-primary"
-            type="button"
-          >
-            Privacy Policy
-          </Button>
-          .
-        </div>
       </div>
     </div>
   );

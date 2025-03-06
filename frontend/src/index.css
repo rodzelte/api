@@ -97,12 +97,3 @@ body {
 .border {
   border-color: var(--border);
 }
-
-input:-webkit-autofill,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: transparent !important;
-}
-
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--foreground) !important;
-}
