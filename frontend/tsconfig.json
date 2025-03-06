@@ -1,4 +1,3 @@
-// frontend/tsconfig.json
 {
   "files": [],
   "references": [
@@ -7,7 +6,6 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "strict": true,
     "paths": {
       "@/*": ["./src/*"]
     }

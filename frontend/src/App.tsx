@@ -1,33 +1,15 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "./components/mode-toggle";
+import AuthForms from "./components/auth";
+import { ModeToggle } from "./components/ui/mode-toggle";
+import { ThemeProvider } from "./components/ui/theme-provider";
 
-import { Routes, Route } from "react-router";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-
-export default function App() {
+function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="theme">
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="m-5">
-          <ModeToggle />
-        </div>
-        <Routes>
-          {/* <Route index element={<Home />} />
-          <Route path="about" element={<About />} /> */}
-
-          <Route>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-          </Route>
-
-          {/* <Route path="concerts">
-            <Route index element={<ConcertsHome />} />
-            <Route path=":city" element={<City />} />
-            <Route path="trending" element={<Trending />} />
-          </Route> */}
-        </Routes>
-      </div>
-    </ThemeProvider>
+    <>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <AuthForms></AuthForms>
+      </ThemeProvider>
+    </>
   );
 }
+
+export default App;
