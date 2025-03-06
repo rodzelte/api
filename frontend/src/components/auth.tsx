@@ -1,5 +1,3 @@
-"use client";
-
 import type React from "react";
 
 import { useState } from "react";
@@ -125,12 +123,11 @@ export default function AuthForms() {
                     <Label htmlFor="registerPassword">Password</Label>
                     <Input id="registerPassword" type="password" required />
                   </div>
-                  <div className="space-y-2 ">
+                  <div className="space-y-2">
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input id="confirmPassword" type="password" required />
                   </div>
                 </CardContent>
-
                 <CardFooter>
                   <Button
                     className="w-full my-3"
