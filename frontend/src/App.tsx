@@ -1,12 +1,16 @@
 import AuthForms from "./components/auth";
 import { ModeToggle } from "./components/ui/mode-toggle";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import Layout from "./Layout";
 
 function App() {
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <AuthForms></AuthForms>
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+        <Layout>
+          <ModeToggle />
+          <AuthForms />
+        </Layout>
       </ThemeProvider>
     </>
   );
