@@ -7,10 +7,7 @@ function App() {
   return (
     <>
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-        <Layout>
-          <ModeToggle />
-          <AuthForms />
-        </Layout>
+        <Layout></Layout>
       </ThemeProvider>
     </>
   );
